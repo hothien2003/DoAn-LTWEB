@@ -45,11 +45,12 @@ public class ProductDAO {
         }
     }
 
-    public static void updateProduct(Connection conn, Product product, String uploadPath) throws SQLException {
-        String sql = "UPDATE product SET name=?, image=?, price=?, title=?, description=?,cateID=? WHERE id=?";
+   public static void updateProduct(Connection conn, Product product, String uploadPath) throws SQLException {
+        String sql = "UPDATE product SET name=?, image=?, price=?, title=?, description=?, cateID=? WHERE id=?";
         try (PreparedStatement pstm = conn.prepareStatement(sql)) {
             pstm.setString(1, product.getName());
             
+
             // Nếu hình ảnh được cung cấp, cập nhật đường dẫn mới
             if (product.getImage() != null && !product.getImage().isEmpty()) {
                 String imagePath = "img/" + product.getImage();
@@ -59,11 +60,12 @@ public class ProductDAO {
                 pstm.setString(2, product.getImage());
             }
 
-            pstm.setInt(3, product.getId());
-            pstm.setString(4, product.getPrice());
-            pstm.setString(5, product.getTitle());
-            pstm.setString(6, product.getDescription());
-            pstm.setInt(7, product.getCateid());
+            
+            pstm.setString(3,product.getPrice());
+            pstm.setString(4,product.getTitle());
+            pstm.setString(5,product.getDescription());
+            pstm.setInt(6, product.getCateid());
+            pstm.setInt(7, product.getId());
             pstm.executeUpdate();
         }
     }
